@@ -53,6 +53,7 @@
 <script setup>
 const filterSelected = ref('all')
 const { allProducts } = useProductsStore()
+
 const optionsRadio = [
   { 
     value: 'all', 
