@@ -11,7 +11,7 @@
             }
           }
         }"
-        placeholder="Filtrar cliente" 
+        placeholder="Filtrar produto" 
       />
       <div>
         <URadioGroup
@@ -40,7 +40,7 @@
         color: 'divide-blue-400 text-gray-300'
       }
     }" 
-    :rows="filteredClients" 
+    :rows="filteredProducts" 
     :columns="columns" 
   >
     <template #active-data="{ row }">
@@ -52,7 +52,7 @@
 
 <script setup>
 const filterSelected = ref('all')
-const { allClients } = useClientsStore()
+const { allProducts } = useProductsStore()
 const optionsRadio = [
   { 
     value: 'all', 
@@ -74,18 +74,6 @@ const columns = [
     label: 'Nome'
   }, 
   {
-    key: 'document',
-    label: 'Documento'
-  }, 
-  {
-    key: 'email',
-    label: 'Email'
-  }, 
-  {
-    key: 'phone',
-    label: 'Telefone'
-  }, 
-  {
     key: 'active',
     label: 'Ativo?'
   }
@@ -93,20 +81,20 @@ const columns = [
 
 const search = ref('')
 
-const filteredClients = computed(() => {
+const filteredProducts = computed(() => {
   if (!search.value && filterSelected.value === 'all') {
-    return allClients
+    return allProducts
   }
 
   if (filterSelected.value === true) {
-    return allClients.filter(item => item.active)
+    return allProducts.filter(item => item.active)
   }
 
   if (filterSelected.value === false) {
-    return allClients.filter(item => !item.active)
+    return allProducts.filter(item => !item.active)
   }
-  
-  return allClients.filter((item) => {  
+
+  return allProducts.filter((item) => {
     return Object.values(item).some((value) => {
       return String(value).toLowerCase().includes(search.value.toLowerCase())
     })

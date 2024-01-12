@@ -39,9 +39,8 @@
 
 
       <!-- Tab Product -->
-      <template #product="{ item }">
-        <UCard 
-          @submit.prevent="onSubmitProduct" 
+      <template #product>
+        <UCard
           :ui="{
             base: 'text-white',
             background: 'bg-dark-secondary',
@@ -52,55 +51,11 @@
             }
           }"
         >
-          <!-- Header -->
           <template #header>
-            <p class="text-base font-semibold leading-6 text-violet-400 dark:text-white">
-              {{ item.description }}
-            </p>
+            <ProductsCreate />
           </template>
           
-          <!-- Body/Form -->
-          <UFormGroup 
-            v-for="(formGroup, index) in fieldsProductForm"
-            :key="index"
-            :ui="{
-              label: {
-                base: 'text-violet-400',
-              }
-            }"
-            :label="formGroup.label" 
-            :name="formGroup.name" 
-            class="mb-3"
-          >
-            
-            <UInput 
-              v-if="formGroup.type"
-              v-model="formGroup.value"
-              :ui="{
-                color: {
-                  white: {
-                    outline: 'bg-gray-900 ring-gray-900 focus:ring-1 focus:ring-violet-400 text-gray-300'
-                  }
-                }
-              }"
-              :type="formGroup.type"
-            />
-
-            <UToggle 
-              v-else 
-              v-model="formGroup.active" 
-              color="violet"
-              on-icon="i-heroicons-check-20-solid"
-              off-icon="i-heroicons-x-mark-20-solid"
-            />
-          </UFormGroup>
-
-          <!-- Footer -->
-          <template #footer>
-            <UButton type="submit" color="violet">
-              Salvar
-            </UButton>
-          </template>
+          <ProductsList />
         </UCard>
       </template>
     </UTabs>
@@ -118,26 +73,4 @@
       label: 'Produtos'
     }
   ];
-
-  const fieldsProductForm = reactive([
-    {
-      label: 'Nome',
-      name: 'name',
-      type: 'text',
-      value: ''
-    },
-    {
-      label: 'Ativo',
-      name: 'active',
-      type: '',
-      active: false
-    }
-  ])
-
-  function onSubmitProduct () {
-    const { saveProduct } = useProductsStore()
-    const handleProduct = fieldsProductForm.map(item => ({[item.name]: (item.value || '') || item.active }))
-    const clientModel = Object.assign({}, ...handleProduct)
-    saveProduct(clientModel)
-  }
 </script>

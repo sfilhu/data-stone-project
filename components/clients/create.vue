@@ -127,5 +127,6 @@ const onSubmitClient = () => {
   const handleClient = fieldsClientForm.map(item => ({[item.name]: (item.value || '') || item.active }))
   const clientModel = Object.assign({}, ...handleClient)
   saveClient(clientModel)
+  isOpen.value = false
 }
 </script>
