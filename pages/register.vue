@@ -39,7 +39,7 @@
           
           <!-- Body/Form -->
           <UFormGroup 
-            v-for="(formGroup, index) in structClientForm"
+            v-for="(formGroup, index) in clientForm"
             :key="index"
             :ui="{
               label: {
@@ -119,6 +119,7 @@
             :name="formGroup.name" 
             class="mb-3"
           >
+            
             <UInput 
               v-if="formGroup.type"
               v-model="formGroup.value"
@@ -169,7 +170,7 @@
     }
   ];
 
-  const structClientForm = reactive([
+  const clientForm = reactive([
     {
       label: 'Nome',
       name: 'name',
@@ -197,7 +198,7 @@
     {
       label: 'Ativo',
       name: 'active',
-      type: null,
+      type: '',
       active: false
     }
   ])
@@ -212,26 +213,21 @@
     {
       label: 'Ativo',
       name: 'active',
-      type: null,
+      type: '',
       active: false
     }
   ])
-  
-  const modelClientForm = reactive({ 
-    name: '', 
-    doc: '',  
-    phone: '',
-    email: '',
-    active: ''
-  })
-  
+    
   const modelProductForm = reactive({ 
     name: '', 
-    active: '' 
+    active: false
   })
 
-  function onSubmitClient () {
-    console.log('Submitted form:', modelClientForm)
+  const onSubmitClient = () => {
+    const { saveClient } = useClientsStore()
+    const handleClient = clientForm.map(item => ({[item.name]: (item.value || '') || item.active }))
+    const clientModel = Object.assign({}, ...handleClient)
+    saveClient(clientModel)
   }
 
   function onSubmitProduct () {

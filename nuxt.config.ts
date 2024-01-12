@@ -3,30 +3,28 @@ export default defineNuxtConfig({
   devtools: { 
     enabled: true 
   },
-  css: [
-    '@/assets/scss/main.scss'
-  ],
-  link: [
-    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Poppins' }
-  ],
+  
+  css: ['@/assets/scss/main.scss'],
+
   modules: [
     '@nuxt/ui',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    "@pinia-plugin-persistedstate/nuxt"
   ],
+  
   pinia: {
-    storesDirs: ['./store/**'],
+    storesDirs: ['./stores/**'],
   },
+  
   googleFonts: {
     families: {
       Inter: '200..900'
     }
   },
+  
   colorMode: {
     preference: 'bg-dark-primary'
-  },
-  theme: {
-    dark: true
   }
 })
