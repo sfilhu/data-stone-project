@@ -28,7 +28,7 @@ As stacks do projeto foram:
 
 Gostaria de ter feito mais, como escrever os testes com Cypress e/ou alguma integração com BD através do Nitro, talvez.
 
-Espero que gostem! Pensei muitos nos detalhes, e na boa experiêcia do usuário. 
+Espero que gostem! Pensei muito nos detalhes, e na boa experiêcia do usuário. 
 
 Qualquer dúvida é chamar!
 
