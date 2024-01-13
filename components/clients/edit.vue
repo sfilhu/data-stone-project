@@ -85,7 +85,6 @@
           }"
           label="Associar produtos"
         >
-          <pre>{{ selected }}</pre>
           <USelectMenu 
             v-if="isOpen"
             v-model="selected" 
