@@ -1,13 +1,16 @@
 <template>
-  <div class="flex flex-row-reverse">
-    <UButton 
-      label="Cadastrar cliente" 
+  <div>
+    <UButton
+      @click="openModal"
+      icon="i-heroicons-pencil-square"
+      size="sm"
       color="blue"
-      @click="isOpen = true" 
+      square
+      variant="link"
     />
 
-    <UModal 
-      v-model="isOpen" 
+    <UModal
+      v-model="isOpen"
       :ui="{
         background: 'bg-gray-900',
         overlay: {
@@ -15,8 +18,9 @@
         }
       }"
     >
+      <!--  @submit.prevent="onSubmitClient" -->
       <UCard
-        @submit.prevent="onSubmitClient" 
+        @submit.prevent="onSubmitEdit"
         :ui="{
           base: 'text-white',
           background: 'bg-dark-secondary',
@@ -31,7 +35,7 @@
         <template #header>
           <div class="flex flex-row justify-between">
             <p class="text-base font-semibold leading-6 text-blue-400 dark:text-white">
-              Cadastro de clientes
+              Editar cliente
             </p>
             <UButton color="gray" variant="blue" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="isOpen = false" />
           </div>
@@ -72,7 +76,7 @@
             {{ formGroup.value }}
           </UToggle>
         </UFormGroup>
-
+        
         <UFormGroup 
           :ui="{
             label: {
@@ -81,7 +85,9 @@
           }"
           label="Associar produtos"
         >
+          <pre>{{ selected }}</pre>
           <USelectMenu 
+            v-if="isOpen"
             v-model="selected" 
             :ui="{
               color: {
@@ -104,6 +110,7 @@
             :options="allProducts.filter(item => item.active)" 
             option-attribute="name"  
             placeholder="Selecione" 
+            :model-value="selected"
             multiple
           >
           <template #label>
@@ -114,7 +121,7 @@
           </template>
           </USelectMenu>
         </UFormGroup>
-
+        
         <!-- Footer -->
         <template #footer>
           <UButton type="submit" color="blue">
@@ -127,10 +134,16 @@
 </template>
 
 <script setup>
-const selected = ref([])
 const { allProducts } = useProductsStore()
-
+let selected = ref([])
 const isOpen = ref(false)
+
+const props = defineProps({
+  data: {
+    type: Object,
+    default: () => ({}),
+  }
+})
 
 const fieldsClientForm = reactive([
   {
@@ -165,12 +178,24 @@ const fieldsClientForm = reactive([
   }
 ])
 
-const onSubmitClient = () => {
-  // const { saveClient } = useClientsStore()
+const openModal = () => {
+  fieldsClientForm.forEach((item) => {
+    if (item.value === '') {
+      item.value = props.data[item.name]
+    } else {
+      item.active = props.data[item.name]
+    }
+  });
+
+  selected = ref(props.data.products || [])
+  isOpen.value = true
+}
+
+const onSubmitEdit = () => {
+  const { editClient } = useClientsStore()
   const handleClient = fieldsClientForm.map(item => ({[item.name]: (item.value || '') || item.active }))
   const client = Object.assign({}, ...handleClient, { products: selected })
-  console.log(client)
-  // saveClient(client)
+  editClient({ ...props.data, ...client})
   isOpen.value = false
 }
 </script>

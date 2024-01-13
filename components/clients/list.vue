@@ -46,6 +46,22 @@
     <template #active-data="{ row }">
       <span>{{ Boolean(row.active) ? 'Sim' : 'Não' }}</span>
     </template>
+
+    <template #actions-data="{ row }">
+      <div class="flex">
+        <ClientsEdit :data="row"/>
+
+        <UButton
+          icon="i-heroicons-trash"
+          size="sm"
+          color="red"
+          square
+          variant="link"
+          @click="deleteClient(row)"
+        />
+
+      </div>
+    </template>
   </UTable>
   </div>
 </template>
@@ -70,6 +86,10 @@ const optionsRadio = [
 
 const columns = [
   {
+    key: 'id',
+    label: 'ID'
+  }, 
+  {
     key: 'name',
     label: 'Nome'
   }, 
@@ -88,6 +108,10 @@ const columns = [
   {
     key: 'active',
     label: 'Ativo?'
+  },
+  {
+    key: 'actions',
+    label: 'Ações'
   }
 ]
 
@@ -112,6 +136,11 @@ const filteredClients = computed(() => {
     })
   })
 })
+
+const deleteClient = (client) => {
+  const { deleteClient } = useClientsStore()
+  deleteClient(client)
+}
 
 </script>
 

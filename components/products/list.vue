@@ -46,6 +46,22 @@
     <template #active-data="{ row }">
       <span>{{ Boolean(row.active) ? 'Sim' : 'Não' }}</span>
     </template>
+
+    <template #actions-data="{ row }">
+      <div class="flex">
+        <ProductsEdit :data="row"/>
+
+        <UButton
+          icon="i-heroicons-trash"
+          size="sm"
+          color="red"
+          square
+          variant="link"
+          @click="deleteProduct(row)"
+        />
+
+      </div>
+    </template>
   </UTable>
   </div>
 </template>
@@ -71,12 +87,20 @@ const optionsRadio = [
 
 const columns = [
   {
+    key: 'id',
+    label: 'ID'
+  }, 
+  {
     key: 'name',
     label: 'Nome'
   }, 
   {
     key: 'active',
     label: 'Ativo?'
+  },
+  {
+    key: 'actions',
+    label: 'Ações'
   }
 ]
 
@@ -102,6 +126,10 @@ const filteredProducts = computed(() => {
   })
 })
 
+const deleteProduct = (client) => {
+  const { deleteProduct } = useProductsStore()
+  deleteProduct(client)
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h1 class="text-center text-2xl text-white py-5">Backoffice</h1>
+    <div class="grid grid-flow-row grid-cols-3 justify-between items-center">
+      <div>
+        <UButton to="/" color="blue" icon="i-heroicons-arrow-left">Voltar</UButton>
+      </div>
+      <h1 class="text-center text-2xl text-white py-5">Backoffice</h1>
+    </div>
     <UTabs 
       :ui="{
         list: {

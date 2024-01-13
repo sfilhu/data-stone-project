@@ -1,9 +1,12 @@
 <template>
-  <div class="flex flex-row-reverse">
-    <UButton 
-      label="Cadastrar produto" 
+  <div>
+    <UButton
+      @click="openModal"
+      icon="i-heroicons-pencil-square"
+      size="sm"
       color="blue"
-      @click="openModal" 
+      square
+      variant="link"
     />
 
     <UModal 
@@ -16,7 +19,7 @@
       }"
     >
       <UCard
-        @submit.prevent="onSubmitProduct" 
+        @submit.prevent="onSubmitEdit" 
         :ui="{
           base: 'text-white',
           background: 'bg-dark-secondary',
@@ -87,37 +90,47 @@
 </template>
 
 <script setup>
-const isOpen = ref(false)
+  const isOpen = ref(false)
 
-const fieldsProductsForm = reactive([
-  {
-    label: 'Nome do produto',
-    name: 'name',
-    type: 'text',
-    value: ''
-  },
-  {
-    label: 'Ativo',
-    name: 'active',
-    type: '',
-    active: false
-  }
-])
-
-const openModal = () => {
-  fieldsProductsForm.forEach(item => {
-    if (!!item.value) item.value = ''
-    if (!!item.active) item.active = false
+  const props = defineProps({
+    data: {
+      type: Object,
+      default: () => ({}),
+    }
   })
 
-  isOpen.value = true
-}
+  const fieldsProductsForm = reactive([
+    {
+      label: 'Nome do produto',
+      name: 'name',
+      type: 'text',
+      value: ''
+    },
+    {
+      label: 'Ativo',
+      name: 'active',
+      type: '',
+      active: false
+    }
+  ])
 
-function onSubmitProduct () {
-  const { saveProduct } = useProductsStore()
-  const handleProduct = fieldsProductsForm.map(item => ({[item.name]: (item.value || '') || item.active }))
-  const product = Object.assign({}, ...handleProduct)
-  saveProduct(product)
-  isOpen.value = false
-}
+  const openModal = () => {
+    fieldsProductsForm.forEach((item) => {
+      if (item.value === '') {
+        item.value = props.data[item.name]
+      } else {
+        item.active = props.data[item.name]
+      }
+    });
+
+    isOpen.value = true
+  }
+
+  const onSubmitEdit = () => {
+    const { editProduct } = useProductsStore()
+    const handleProduct = fieldsProductsForm.map(item => ({[item.name]: (item.value || '') || item.active }))
+    const product = Object.assign({}, ...handleProduct)
+    editProduct({ ...props.data, ...product})
+    isOpen.value = false
+  }
 </script>
