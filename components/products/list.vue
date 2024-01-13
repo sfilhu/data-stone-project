@@ -12,6 +12,8 @@
           }
         }"
         placeholder="Filtrar produto" 
+        icon="i-heroicons-magnifying-glass-20-solid"
+        trailing
       />
       <div>
         <URadioGroup

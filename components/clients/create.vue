@@ -166,11 +166,10 @@ const fieldsClientForm = reactive([
 ])
 
 const onSubmitClient = () => {
-  // const { saveClient } = useClientsStore()
+  const { saveClient } = useClientsStore()
   const handleClient = fieldsClientForm.map(item => ({[item.name]: (item.value || '') || item.active }))
   const client = Object.assign({}, ...handleClient, { products: selected })
-  console.log(client)
-  // saveClient(client)
+  saveClient(client)
   isOpen.value = false
 }
 </script>

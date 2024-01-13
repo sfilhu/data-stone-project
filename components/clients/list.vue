@@ -12,6 +12,8 @@
           }
         }"
         placeholder="Filtrar cliente" 
+        icon="i-heroicons-magnifying-glass-20-solid"
+        trailing
       />
       <div>
         <URadioGroup
