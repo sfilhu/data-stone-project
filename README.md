@@ -14,8 +14,10 @@ npm i
 npm run dev
 ```
 
-Olá sou o Sérgio! Primeiramente lamento pelo atraso da entrega pois fui fazendo aos poucos conforme minha agenda do dia a dia.
-Mas falando um pouco do projeto, como não foi especificado qual a versão do Vue usar optei em usar a última versão lançada (VueJS 3) seguindo do API composition. 
+Olá sou o Sérgio! 
+
+Primeiramente lamento pelo atraso da entrega pois fui fazendo aos poucos conforme minha agenda do dia a dia.
+Mas falando um pouco do projeto, como não foi especificado qual a versão do Vue usar, optei pela última versão lançada (VueJS 3) seguindo do API composition. 
 
 As stacks do projeto foram:
 - NuxtJS 3
@@ -26,11 +28,11 @@ As stacks do projeto foram:
 - NuxtUI
 - Pinia
 
-Gostaria de ter feito mais, teste com Cypress e alguma integração com BD através do Nitro, talvez.
+Gostaria de ter feito mais, como escrever os testes com Cypress e/ou alguma integração com BD através do Nitro, talvez.
 
-Espero que gostem, pensei muitos nos detalhes e na boa experiêcia do usuário. 
+Espero que gostem! Pensei muitos nos detalhes, e na boa experiêcia do usuário. 
 
 Qualquer dúvida é chamar!
 
-Obrigado!
+Muito obrigado!
 
